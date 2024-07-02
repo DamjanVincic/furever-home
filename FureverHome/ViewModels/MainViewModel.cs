@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FureverHome.Models;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +11,9 @@ namespace FureverHome.ViewModels
 {
     public class MainViewModel
     {
-        public MainViewModel(Window loginWindow) { }
+        private readonly ObservableCollection<Post> _posts;
+        public MainViewModel(Window loginWindow) { 
+            _posts = new ObservableCollection
+        }
     }
 }
