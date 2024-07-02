@@ -67,7 +67,7 @@ namespace FureverHome.Services
             Account account =
                 _accountRepository.GetAll().FirstOrDefault(account =>
                     account.UserName.Equals(username) && account.Password.Equals(password)) ??
-                throw new InvalidInputException("Invalid input");
+                throw new InvalidInputException("Invalid username or password.");
 
             if (account.Status.Equals(AccountStatus.Pending))
             {

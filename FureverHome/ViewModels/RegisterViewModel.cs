@@ -4,7 +4,6 @@ using System.Windows.Input;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using FureverHome.Services;
-using FureverHome.Views;
 
 namespace FureverHome.ViewModels
 {
@@ -39,7 +38,6 @@ namespace FureverHome.ViewModels
                     MessageBoxImage.Information);
 
                 _registerWindow.Close();
-                
             }
             catch (InvalidInputException exception)
             {

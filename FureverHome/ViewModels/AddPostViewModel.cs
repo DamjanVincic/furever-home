@@ -13,18 +13,17 @@ using GalaSoft.MvvmLight.Command;
 
 namespace FureverHome.ViewModels
 {
-    public class AddPostViewModel:ViewModelBase
+    public class AddPostViewModel : ViewModelBase
     {
-        private readonly AnimalBreedService _animalBreedService =
-            ServiceProvider.GetRequiredService<AnimalBreedService>();
+        private readonly AnimalBreedService _animalBreedService = ServiceProvider.GetRequiredService<AnimalBreedService>();
         private readonly ColorService _colorService = ServiceProvider.GetRequiredService<ColorService>();
-        private readonly PostService _postService=ServiceProvider.GetRequiredService<PostService>();
+        private readonly PostService _postService = ServiceProvider.GetRequiredService<PostService>();
 
-        private readonly Window _cureentWindow;
+        private readonly Window _currentWindow;
 
         public AddPostViewModel(Window currentWindow)
         {
-            _cureentWindow=currentWindow;
+            _currentWindow = currentWindow;
 
             AddCommand = new RelayCommand(AddPost);
         }
@@ -42,7 +41,7 @@ namespace FureverHome.ViewModels
         public Color SelectedColor { get; set; }
         public AnimalBreed? SelectedBreed { get; set; }
 
-        public void AddPost()
+        private void AddPost()
         {
             try
             {
@@ -51,17 +50,19 @@ namespace FureverHome.ViewModels
 
                 if (SelectedColor == null)
                     throw new InvalidInputException("No color selected");
-                //TODO: use logged in user id
-                _postService.Add(Title, ImageLink, Name, Location, HealthStatus, Birthday, SelectedBreed.Id, SelectedColor.Id, 2);
+
+                _postService.Add(Title, ImageLink, Name, Location, HealthStatus, Birthday, SelectedBreed.Id,
+                    SelectedColor.Id, UserService.LoggedInAccount!.UserId);
+
                 MessageBox.Show("Post added successfully.", "Success", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                _cureentWindow.Close();
+
+                _currentWindow.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
     }
 }
