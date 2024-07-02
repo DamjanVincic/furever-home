@@ -19,7 +19,7 @@ namespace FureverHome.ViewModels
         private readonly ObservableCollection<PostViewModel> _posts;
 
         private readonly PostService _postService = ServiceProvider.GetRequiredService<PostService>();
-        public MainViewModel(Window loginWindow)
+        public MainViewModel()
         {
             _posts = new ObservableCollection<PostViewModel>(_postService.GetAll().Select(post=>new PostViewModel(post)));
             LoginCommand = new RelayCommand(Login);
