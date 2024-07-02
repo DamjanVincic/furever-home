@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace FureverHome.Models
 {
     public class InvalidInputException : Exception
