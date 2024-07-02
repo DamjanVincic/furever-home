@@ -21,10 +21,20 @@ public class AdoptionService
     
     public void Add(int postId, int userId, int duration, bool permanent)
     {
+        CanAdopt(postId, userId);
         AdoptionRequest adoptionRequest = new AdoptionRequest(duration, permanent, postId, userId);
         _adoptionRequestRepository.Add(adoptionRequest);
     }
     
+    public void CanAdopt(int postId,int userId)
+    {
+        foreach(AdoptionRequest adoptionReqiest in _postRepository.GetById(postId).AdoptionRequests) { 
+            if(adoptionReqiest.User.Id == userId)
+            {
+                throw new InvalidInputException("You have alrady sent request for this animal.");
+            }
+        }
+    }
     public void ReviewRequest(int requestId, int volunteerId, bool isApproved)
     {
         User user = _userRepository.GetById(volunteerId)!;
