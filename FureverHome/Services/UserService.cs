@@ -24,6 +24,12 @@ namespace FureverHome.Services
         {
             return _userRepository.GetById(id);
         }
+
+        public List<User> GetPendingUsers()
+        {
+            var pendingAccounts = _accountRepository.GetAll().Where(acc => acc.Status == AccountStatus.Pending);
+            return pendingAccounts.Select(acc => acc.User).ToList();
+        }
         // user registration
         public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender, string? phone,
         string? adress)
