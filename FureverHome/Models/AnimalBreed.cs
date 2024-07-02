@@ -5,18 +5,18 @@
         public AnimalBreed()
         {
         }
-        public AnimalBreed(int id, string name, int animalSpeciesId, AnimalSpecies animalSpecies)
+
+        public AnimalBreed(string name, int animalSpeciesId)
         {
-            Id = id;
             Name = name;
             AnimalSpeciesId = animalSpeciesId;
-            AnimalSpecies = animalSpecies;
         }
 
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = null!;
         public int AnimalSpeciesId { get; set; }
-        public virtual AnimalSpecies AnimalSpecies { get; set; }
+        public virtual AnimalSpecies AnimalSpecies { get; set; } = null!;
+
         public override string ToString()
         {
             return AnimalSpecies.Name + " " + Name;

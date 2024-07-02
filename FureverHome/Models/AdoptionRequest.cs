@@ -3,8 +3,9 @@
     public class AdoptionRequest
     {
         public AdoptionRequest()
-        {}
-        
+        {
+        }
+
         public AdoptionRequest(int duration, bool permanent, int postId, int userId)
         {
             Duration = duration;
@@ -12,7 +13,7 @@
             PostId = postId;
             UserId = userId;
         }
-        
+
         public int Id { get; set; }
         public int Duration { get; set; }
         public bool Permanent { get; set; }

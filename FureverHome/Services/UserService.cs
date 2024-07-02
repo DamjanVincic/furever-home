@@ -36,7 +36,7 @@ namespace FureverHome.Services
         }
 
         public void Update(int id, string? firstName, string? lastName, Gender gender, string? phone,
-            string? adress)
+            string? address)
         {
             User user = _userRepository.GetById(id) ?? throw new InvalidInputException("User doesn't exist");
 
@@ -44,7 +44,7 @@ namespace FureverHome.Services
             user.LastName = lastName!;
             user.Gender = gender;
             user.Phone = phone!;
-            user.Adress = adress!;
+            user.Address = address!;
 
             _userRepository.Update(user);
         }
