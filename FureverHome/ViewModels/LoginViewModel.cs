@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using FureverHome.Models;
+using FureverHome.Services;
 using FureverHome.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -10,6 +12,7 @@ namespace FureverHome.ViewModels
     {
         private readonly Window _loginWindow;
 
+        private readonly UserService _userService = ServiceProvider.GetRequiredService<UserService>();
         public string? Username { get; set; }
         public string? Password { get; set; }
 
@@ -29,25 +32,32 @@ namespace FureverHome.ViewModels
         }
         private void Login()
         {
-            //User? user = _userService.Login(Username!, Password!);
+            try{
+                User? user = _userService.Login(Username!, Password!);
+            }
+            catch(InvalidOperationException e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
 
             //switch (user)
             //{
             //    case null:
-            //        MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //        messagebox.show("invalid username or password.", "error", messageboxbutton.ok, messageboximage.error);
             //        return;
 
-            //    case Student student:
-            //        _studentService.CheckIfFirstInMonth();
-            //        ReviewTeacher(student);
+            //    case student student:
+            //        _studentservice.checkiffirstinmonth();
+            //        reviewteacher(student);
 
-            //        new StudentView().Show();
+            //        new studentview().show();
             //        break;
-            //    case Director:
-            //        new DirectorMainMenu().Show();
+            //    case director:
+            //        new directormainmenu().show();
             //        break;
-            //    case Teacher:
-            //        new TeacherMenu().Show();
+            //    case teacher:
+            //        new teachermenu().show();
             //        break;
             //}
 
