@@ -6,6 +6,15 @@
         {
         }
 
+        public User(string firstName, string lastName, Gender gender, string phone, string adress)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Gender = gender;
+            Phone = phone;
+            Adress = adress;
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
