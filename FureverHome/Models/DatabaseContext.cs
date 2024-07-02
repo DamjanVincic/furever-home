@@ -43,6 +43,10 @@ public class DatabaseContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        // modelBuilder.Entity<Account>()
+        //     .HasIndex(a => a.UserName)
+        //     .IsUnique();
+
         modelBuilder.Entity<Account>()
             .HasOne(a => a.User)
             .WithOne()
@@ -95,5 +99,21 @@ public class DatabaseContext : DbContext
             .HasOne<RegisteredUser>()
             .WithMany(ru => ru.Messages)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Post>()
+            .HasOne(p => p.Animal)
+            .WithMany()
+            .HasForeignKey(p => p.AnimalId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Post>()
+            .HasOne(p => p.Author)
+            .WithMany()
+            .HasForeignKey(p => p.AuthorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Post>()
+            .HasMany(p => p.LikedBy)
+            .WithMany();
     }
 }
