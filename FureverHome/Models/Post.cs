@@ -6,6 +6,18 @@
         {
         }
 
+        public Post(string title, string imageLink, DateTime date, PostStatus status, bool isApproved,
+            int authorId, int animalId)
+        {
+            Title = title;
+            ImageLink = imageLink;
+            Date = date;
+            Status = status;
+            IsApproved = isApproved;
+            AuthorId = authorId;
+            AnimalId = animalId;
+        }
+
         public int Id { get; set; }
         public string Title { get; set; }
         public string ImageLink { get; set; }
