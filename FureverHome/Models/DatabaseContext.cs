@@ -60,5 +60,11 @@ public class DatabaseContext : DbContext
             .WithMany(u => u.AdoptionRequests)
             .HasForeignKey(ar => ar.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AnimalBreed>()
+            .HasOne(ab => ab.AnimalSpecies)
+            .WithMany()
+            .HasForeignKey(ab => ab.AnimalSpeciesId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
