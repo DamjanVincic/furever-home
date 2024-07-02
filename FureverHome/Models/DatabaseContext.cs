@@ -28,7 +28,6 @@ public class DatabaseContext : DbContext
     public DbSet<RegisteredUser> RegisteredUsers { get; set; }
     public DbSet<User> Users { get; set; }
     public DbSet<Volunteer> Volunteers { get; set; }
-    public DbSet<VolunteerApplication> VolunteerApplications { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
