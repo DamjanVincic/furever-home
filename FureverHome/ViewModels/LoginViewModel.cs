@@ -29,40 +29,36 @@ namespace FureverHome.ViewModels
         private void NavigateToRegister()
         {
             new RegisterView().Show();
+            _loginWindow.Close();
         }
         private void Login()
         {
             try{
-                User? user = _userService.Login(Username!, Password!);
+                Account? account = _userService.Login(Username!, Password!);
+                Application.Current.MainWindow?.Close();
+                if (account == null) {
+                    MessageBox.Show("invalid username or password.", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (account.Type.Equals(AccountType.Volunteer)){
+                    //new VolunteerView().Show();
+                }
+                else {
+                    //new RegisteredUserView().Show();
+                }
+
             }
-            catch(InvalidOperationException e)
+            catch (InvalidInputException e)
             {
                 MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
 
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _loginWindow.Close();
 
-            //switch (user)
-            //{
-            //    case null:
-            //        messagebox.show("invalid username or password.", "error", messageboxbutton.ok, messageboximage.error);
-            //        return;
-
-            //    case student student:
-            //        _studentservice.checkiffirstinmonth();
-            //        reviewteacher(student);
-
-            //        new studentview().show();
-            //        break;
-            //    case director:
-            //        new directormainmenu().show();
-            //        break;
-            //    case teacher:
-            //        new teachermenu().show();
-            //        break;
-            //}
-
-            _loginWindow.Close();
-            Application.Current.MainWindow?.Close();
+            }
         }
 
     }
