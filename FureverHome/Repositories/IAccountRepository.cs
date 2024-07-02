@@ -11,7 +11,7 @@ namespace FureverHome.Repositories
     {
         public List<Account> GetAll();
         public Account? GetById(int id);
-        public void Add(Account account);
+        public int Add(Account account);
         public void Update(Account account);
         public void Delete(int id);
     }
