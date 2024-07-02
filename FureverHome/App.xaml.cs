@@ -57,5 +57,7 @@ public partial class App : Application
         services.AddScoped<UserService>();
         services.AddScoped<ICommentService, CommentService>();
         services.AddScoped<PostService>();
+        services.AddScoped<AdoptionService>();
+
     }
 }

@@ -45,7 +45,7 @@ namespace FureverHome.ViewModels
                     _loginWindow.Close();
                 }
                 else {
-                    //new RegisteredUserView().Show();
+                    new MainWindowUser().Show();
                     _loginWindow.Close();
                 }
 
