@@ -31,5 +31,14 @@ namespace FureverHome.Services
             _accountRepository.Add(new(username!, password!, user.Id, AccountType.Volunteer, AccountStatus.Active));
         }
 
+        internal void RejectRegistrationRequest(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ApproveRegistrationRequest(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
