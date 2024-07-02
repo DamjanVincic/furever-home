@@ -45,12 +45,17 @@ namespace FureverHome.Services
             }
             else
             {
-                //TODO: delete post
+                _postRepository.Delete(postId);
             }
         }
         public List<Post> GetAll()
         {
-            return _postRepository.GetAll();
+            return _postRepository.GetAll().Where(post=>post.IsApproved).ToList();
+        }
+
+        public List<Post> GetUnapproved()
+        {
+            return _postRepository.GetAll().Where(post => !post.IsApproved).ToList();
         }
     }
 }
