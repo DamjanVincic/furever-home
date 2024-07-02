@@ -5,7 +5,7 @@ namespace FureverHome.Services
 {
     public class UserService
     {
-        public static User? LoggedInUser { get; private set; }
+        public static Account? LoggedInAccount { get; private set; }
         private readonly IUserRepository _userRepository;
         private readonly IAccountRepository _accountRepository;
 
@@ -47,9 +47,6 @@ namespace FureverHome.Services
             user.Adress = adress!;
 
             _userRepository.Update(user);
-
-            if (LoggedInUser?.Id == id)
-                LoggedInUser = user;
         }
 
         public void Delete(int id)
@@ -58,28 +55,27 @@ namespace FureverHome.Services
 
             _userRepository.Delete(id);
 
-            if (LoggedInUser?.Id == id)
-                LoggedInUser = null;
+            if (LoggedInAccount?.Id == id)
+                LoggedInAccount = null;
         }
 
         public Account? Login(string username, string password)
         {
-            Account? account = _accountRepository.GetAll().FirstOrDefault(account => account.UserName.Equals(username) && account.Password.Equals(password)) ?? throw new InvalidInputException("Neispravno uneti kredencijali");
+            Account? account = _accountRepository.GetAll().FirstOrDefault(account => account.UserName.Equals(username) && account.Password.Equals(password)) ?? throw new InvalidInputException("Invalid input");
             if (account!.Status.Equals(AccountStatus.Pending))
             {
                 throw new InvalidOperationException("You are on the approval waiting list.");
             }
-            User? user = _userRepository.GetById(account!.UserId);
-            LoggedInUser = user;
+            LoggedInAccount = account;
             return account;
         }
 
         public void Logout()
         {
-            if (LoggedInUser == null)
+            if (LoggedInAccount == null)
                 throw new InvalidInputException("Already logged out.");
 
-            LoggedInUser = null;
+            LoggedInAccount = null;
         }
 
     }
