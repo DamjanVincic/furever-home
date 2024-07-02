@@ -8,7 +8,7 @@ using FureverHome.Repositories;
 
 namespace FureverHome.Services
 {
-    public class CommentService : ICommentService
+    public class CommentService
     {
         private readonly ICommentRepository _commentRepository;
         private readonly IPostRepository _postRepository;

@@ -23,6 +23,9 @@ public partial class App : Application
         ConfigureServices(services);
         
         ServiceProvider.Instance = services.BuildServiceProvider();
+
+        var postRepository = ServiceProvider.GetRequiredService<IPostRepository>();
+        postRepository.Delete(1);
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -54,8 +57,9 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
+        
         services.AddScoped<UserService>();
-        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<CommentService>();
         services.AddScoped<AnimalBreedService>();
         services.AddScoped<ColorService>();
         services.AddScoped<PostService>();

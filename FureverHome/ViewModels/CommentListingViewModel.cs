@@ -12,10 +12,9 @@ namespace FureverHome.ViewModels
     public class CommentListingViewModel
     {
         private readonly ObservableCollection<CommentViewModel> _comments;
-        private readonly ICommentService _commentService;
+        private readonly CommentService _commentService = ServiceProvider.GetRequiredService<CommentService>();
 
-        public CommentListingViewModel(ICommentService commentService,int postId) {
-            _commentService = commentService;
+        public CommentListingViewModel(int postId) {
             _comments = new ObservableCollection<CommentViewModel>(_commentService.GetByPostId(postId).Select(comment => new CommentViewModel(comment)));
         }
         public IEnumerable<CommentViewModel> Comments => _comments;

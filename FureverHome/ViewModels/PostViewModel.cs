@@ -21,7 +21,7 @@ namespace FureverHome.ViewModels
         }
         public int Id => _post.Id;
         public string Title => _post.Title;
-        public string ImageLink => _post.Title;
+        public string ImageLink => _post.ImageLink;
         public DateTime Date => _post.Date;
         public PostStatus Status => _post.Status;
 
