@@ -3,6 +3,7 @@ using System;
 using FureverHome.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FureverHome.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240702144926_Configure relationship between adoption request and user, post")]
+    partial class Configurerelationshipbetweenadoptionrequestanduserpost
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,7 +246,7 @@ namespace FureverHome.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("PostId")
+                    b.Property<int?>("PostId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Text")
@@ -501,19 +504,15 @@ namespace FureverHome.Migrations
 
             modelBuilder.Entity("FureverHome.Models.Comment", b =>
                 {
-                    b.HasOne("FureverHome.Models.Post", "Post")
+                    b.HasOne("FureverHome.Models.Post", null)
                         .WithMany("Comments")
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PostId");
 
                     b.HasOne("FureverHome.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Post");
 
                     b.Navigation("User");
                 });
@@ -522,8 +521,7 @@ namespace FureverHome.Migrations
                 {
                     b.HasOne("FureverHome.Models.RegisteredUser", null)
                         .WithMany("Messages")
-                        .HasForeignKey("RegisteredUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RegisteredUserId");
                 });
 
             modelBuilder.Entity("FureverHome.Models.Post", b =>

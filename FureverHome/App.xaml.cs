@@ -35,6 +35,8 @@ public partial class App : Application
 
     private void ConfigureServices(IServiceCollection services)
     {
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+        
         string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new InvalidInputException("Connection string not found in .env file.");
         services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
