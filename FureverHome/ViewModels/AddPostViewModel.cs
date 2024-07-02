@@ -31,8 +31,8 @@ namespace FureverHome.ViewModels
 
         public ICommand AddCommand { get; }
 
-        public IEnumerable<AnimalBreed> AnimalBreeds => _animalBreedService.getAll();
-        public IEnumerable<Color> Colors => _colorService.getAll();
+        public IEnumerable<AnimalBreed> AnimalBreeds => _animalBreedService.GetAll();
+        public IEnumerable<Color> Colors => _colorService.GetAll();
         public string Title { get; set; }
         public string ImageLink { get; set; }
         public string Name { get; set; }

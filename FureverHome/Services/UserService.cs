@@ -6,6 +6,7 @@ namespace FureverHome.Services
     public class UserService
     {
         public static Account? LoggedInAccount { get; private set; }
+
         private readonly IUserRepository _userRepository;
         private readonly IAccountRepository _accountRepository;
 
@@ -24,15 +25,17 @@ namespace FureverHome.Services
         {
             return _userRepository.GetById(id);
         }
+
         // user registration
-        public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender, string? phone,
-        string? adress)
+        public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender,
+            string? phone, string? address)
         {
             if (_accountRepository.GetAll().Any(account => account.UserName.Equals(username)))
                 throw new InvalidInputException("Username already exists");
-            User user = new(firstName!, lastName!, gender, phone!, adress!);
-            _userRepository.Add(user);
-            _accountRepository.Add(new(username!, password!, user.Id, AccountType.User, AccountStatus.Pending));
+
+            User user = new(firstName!, lastName!, gender, phone!, address!);
+            var userId = _userRepository.Add(user);
+            _accountRepository.Add(new Account(username!, password!, userId, AccountType.User, AccountStatus.Pending));
         }
 
         public void Update(int id, string? firstName, string? lastName, Gender gender, string? phone,
@@ -55,17 +58,22 @@ namespace FureverHome.Services
 
             _userRepository.Delete(id);
 
-            if (LoggedInAccount?.Id == id)
+            if (LoggedInAccount?.UserId == id)
                 LoggedInAccount = null;
         }
 
-        public Account? Login(string username, string password)
+        public Account Login(string username, string password)
         {
-            Account? account = _accountRepository.GetAll().FirstOrDefault(account => account.UserName.Equals(username) && account.Password.Equals(password)) ?? throw new InvalidInputException("Invalid input");
-            if (account!.Status.Equals(AccountStatus.Pending))
+            Account account =
+                _accountRepository.GetAll().FirstOrDefault(account =>
+                    account.UserName.Equals(username) && account.Password.Equals(password)) ??
+                throw new InvalidInputException("Invalid input");
+
+            if (account.Status.Equals(AccountStatus.Pending))
             {
-                throw new InvalidOperationException("You are on the approval waiting list.");
+                throw new InvalidInputException("You are on the approval waiting list.");
             }
+
             LoggedInAccount = account;
             return account;
         }
@@ -77,6 +85,5 @@ namespace FureverHome.Services
 
             LoggedInAccount = null;
         }
-
     }
 }
