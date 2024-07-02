@@ -1,4 +1,6 @@
-﻿namespace FureverHome.Models
+﻿using System.Windows.Media.Imaging;
+
+namespace FureverHome.Models
 {
     public class Post
     {

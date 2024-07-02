@@ -6,14 +6,21 @@
         {
         }
 
+        public User(string firstName, string lastName, Gender gender, string phone, string adress)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Gender = gender;
+            Phone = phone;
+            Adress = adress;
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public string Phone { get; set; }
         public string Adress { get; set; }
-        public int AccountId { get; set; }
-        public virtual Account Account { get; set; }
         public virtual List<AdoptionRequest> AdoptionRequests { get; set; } = [];
     }
 }

@@ -3,78 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FureverHome.ViewModels"
+        xmlns:views="clr-namespace:FureverHome.Views"
         mc:Ignorable="d"
         d:DesignHeight="393" d:DesignWidth="700"
         WindowStartupLocation="CenterScreen"
-        Title="LangLang" Width="700" Height="393">
+        Title="LangLang" Width="700" Height="500">
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="7*" />
+        </Grid.RowDefinitions>
 
-        <Image Source="https://img.freepik.com/free-vector/group-cute-smiley-pets_23-2148512151.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>
+        <Grid Grid.Row="0" Background="AliceBlue">
+            <Button Command="{Binding LoginCommand}" Content="Login" Grid.Column="1" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="80" Height="auto" Background="#55bcbb" Foreground="White" />
+        </Grid>
 
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="1*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Grid.Row="0">
-                <Run Text="WELCOME TO"/>
-                <Run Text="FUREVER" Foreground="#ec3629"/>
-                <Run Text="HOME" Foreground="#55bcbb"/>
-            </TextBlock>
-
-
-            <TextBlock Text="Email:" FontWeight="Bold" Grid.Row="1"/>
-            <TextBox x:Name="UsernameTextBox" Text="{Binding Email}"  Width="200" Height="40" Grid.Row="2"/>
-
-            <TextBlock Text="Password:" FontWeight="Bold" Grid.Row="3"/>
-            <PasswordBox x:Name="PasswordBox" Width="200" Height="40" Grid.Row="4" PasswordChanged="PasswordBox_PasswordChanged"/>
-
-            <Button Content="LOGIN" Width="100" Command="{Binding LoginCommand}"  Grid.Row="5" Height="40" Background="#55bcbb" HorizontalAlignment="Center">
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="Foreground" Value="White" />
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="Button">
-                                    <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-
-            <TextBlock Grid.Row="6">
-            Don't have an account? 
-            <Hyperlink Foreground="#55bcbb"  Command="{Binding NavigateToRegisterCommand}">
-                 <TextBlock Text="Register now!">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock">
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Foreground" Value="#f46231"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                 </TextBlock>
-             </Hyperlink>
-         </TextBlock>
+        <Grid Grid.Row="1">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Posts}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <views:PostCard DataContext="{Binding}" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+            
         </Grid>
     </Grid>
 </Window>

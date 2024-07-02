@@ -5,6 +5,27 @@
         public Animal()
         {
         }
+        public Animal(int id, string name, string foundLocation, string healthStatus, DateTime birthYear)
+        {
+            Id = id;
+            Name = name;
+            FoundLocation = foundLocation;
+            HealthStatus = healthStatus;
+            BirthYear = birthYear;
+        }
+
+        public Animal(int id, string name, string foundLocation, string healthStatus, DateTime birthYear, int animalBreedId, AnimalBreed animalBreed, int colorId, Color color)
+        {
+            Id = id;
+            Name = name;
+            FoundLocation = foundLocation;
+            HealthStatus = healthStatus;
+            BirthYear = birthYear;
+            AnimalBreedId = animalBreedId;
+            AnimalBreed = animalBreed;
+            ColorId = colorId;
+            Color = color;
+        }
 
         public Animal(string name, string foundLocation, string healthStatus, DateTime birthYear,
             int animalBreedId, int colorId)
