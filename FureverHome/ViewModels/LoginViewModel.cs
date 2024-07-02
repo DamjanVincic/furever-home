@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using FureverHome.Models;
+using FureverHome.Services;
 using FureverHome.Views;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -10,6 +12,7 @@ namespace FureverHome.ViewModels
     {
         private readonly Window _loginWindow;
 
+        private readonly UserService _userService = ServiceProvider.GetRequiredService<UserService>();
         public string? Username { get; set; }
         public string? Password { get; set; }
 
@@ -26,33 +29,36 @@ namespace FureverHome.ViewModels
         private void NavigateToRegister()
         {
             new RegisterView().Show();
+            _loginWindow.Close();
         }
         private void Login()
         {
-            //User? user = _userService.Login(Username!, Password!);
+            try{
+                Account? account = _userService.Login(Username!, Password!);
+                Application.Current.MainWindow?.Close();
+                if (account == null) {
+                    MessageBox.Show("invalid username or password.", "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (account.Type.Equals(AccountType.Volunteer)){
+                    //new VolunteerView().Show();
+                }
+                else {
+                    //new RegisteredUserView().Show();
+                }
 
-            //switch (user)
-            //{
-            //    case null:
-            //        MessageBox.Show("Invalid username or password.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //        return;
+            }
+            catch (InvalidInputException e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
 
-            //    case Student student:
-            //        _studentService.CheckIfFirstInMonth();
-            //        ReviewTeacher(student);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _loginWindow.Close();
 
-            //        new StudentView().Show();
-            //        break;
-            //    case Director:
-            //        new DirectorMainMenu().Show();
-            //        break;
-            //    case Teacher:
-            //        new TeacherMenu().Show();
-            //        break;
-            //}
-
-            _loginWindow.Close();
-            Application.Current.MainWindow?.Close();
+            }
         }
 
     }

@@ -5,11 +5,13 @@
         public Account()
         {
         }
-        public Account(string username, string password, AccountType type)
+        public Account(string username, string password, int userId, AccountType type, AccountStatus status)
         {
             UserName = username;
             Password = password;
             Type = type;
+            Status = status;
+            UserId = userId;
         }
         public int Id { get; set; }
         public string UserName { get; set; }

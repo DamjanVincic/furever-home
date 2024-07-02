@@ -1,13 +1,9 @@
 ﻿using FureverHome.Models;
 using FureverHome.Repositories;
-using System;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace FureverHome.Services
 {
-    internal class UserService
+    public class UserService
     {
         public static User? LoggedInUser { get; private set; }
         private readonly IUserRepository _userRepository;
@@ -28,29 +24,24 @@ namespace FureverHome.Services
         {
             return _userRepository.GetById(id);
         }
-
+        // user registration
         public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender, string? phone,
-            string? adress, AccountType accountType)
+        string? adress)
         {
             if (_accountRepository.GetAll().Any(account => account.UserName.Equals(username)))
                 throw new InvalidInputException("Username already exists");
-
-            Account account = new(username!, password!, accountType);
-            int accountId = _accountRepository.Add(account);
-            account.Id = accountId;
-            _userRepository.Add(new User(firstName!, lastName!, gender, phone!, adress!, account));
+            User user = new(firstName!, lastName!, gender, phone!, adress!);
+            _userRepository.Add(user);
+            _accountRepository.Add(new(username!, password!, user.Id, AccountType.User, AccountStatus.Pending));
         }
 
-        public void Update(int id, string? firstName, string? lastName, string? username, string? password, Gender gender, string? phone,
-            string? adress, AccountType accountType)
+        public void Update(int id, string? firstName, string? lastName, Gender gender, string? phone,
+            string? adress)
         {
             User user = _userRepository.GetById(id) ?? throw new InvalidInputException("User doesn't exist");
 
             user.FirstName = firstName!;
             user.LastName = lastName!;
-            user.Account.Password = password!;
-            user.Account.UserName = username!;
-            user.Account.Type = accountType;
             user.Gender = gender;
             user.Phone = phone!;
             user.Adress = adress!;
@@ -71,12 +62,16 @@ namespace FureverHome.Services
                 LoggedInUser = null;
         }
 
-        public User? Login(string email, string password)
+        public Account? Login(string username, string password)
         {
-            User? user = _userRepository.GetAll()
-                .FirstOrDefault(user => user.Account.UserName.Equals(email) && user.Account.Password.Equals(password));
+            Account? account = _accountRepository.GetAll().FirstOrDefault(account => account.UserName.Equals(username) && account.Password.Equals(password)) ?? throw new InvalidInputException("Neispravno uneti kredencijali");
+            if (account!.Status.Equals(AccountStatus.Pending))
+            {
+                throw new InvalidOperationException("You are on the approval waiting list.");
+            }
+            User? user = _userRepository.GetById(account!.UserId);
             LoggedInUser = user;
-            return user;
+            return account;
         }
 
         public void Logout()

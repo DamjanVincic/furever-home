@@ -8,16 +8,16 @@
         mc:Ignorable="d"
         d:DesignHeight="393" d:DesignWidth="700"
         WindowStartupLocation="CenterScreen"
-        Title="LangLang" Width="700" Height="393">
+        Title="LangLang" Width="700" Height="500">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="7*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Background="AliceBlue">
-            <Button Command="{Binding LoginRegisterAddCommand}" Content="Add" Grid.Column="1" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="80" Height="40" Background="#55bcbb" Foreground="White" />
+            <Button Command="{Binding LoginCommand}" Content="Login" Grid.Column="1" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="80" Height="auto" Background="#55bcbb" Foreground="White" />
         </Grid>
 
         <Grid Grid.Row="1">

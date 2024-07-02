@@ -11,7 +11,7 @@ namespace FureverHome.Repositories
     {
         List<Animal> GetAll();
         Animal? GetById(int id); 
-        Animal Add(Animal animal);
+        int Add(Animal animal);
         void Update(Animal animal);
         void Delete(int id);
     }
