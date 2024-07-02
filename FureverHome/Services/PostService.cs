@@ -48,5 +48,9 @@ namespace FureverHome.Services
                 //TODO: delete post
             }
         }
+        public List<Post> GetAll()
+        {
+            return _postRepository.GetAll();
+        }
     }
 }

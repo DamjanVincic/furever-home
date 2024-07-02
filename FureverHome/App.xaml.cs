@@ -2,6 +2,7 @@
 using FureverHome.Models;
 using FureverHome.Repositories;
 using FureverHome.Repositories.PostgresRepositories;
+using FureverHome.Services;
 using FureverHome.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,5 +54,8 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
+        services.AddScoped<UserService>();
+        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<PostService>();
     }
 }
