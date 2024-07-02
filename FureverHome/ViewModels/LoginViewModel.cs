@@ -35,16 +35,18 @@ namespace FureverHome.ViewModels
         {
             try{
                 Account? account = _userService.Login(Username!, Password!);
-                Application.Current.MainWindow?.Close();
+                //Application.Current.MainWindow?.Close();
                 if (account == null) {
                     MessageBox.Show("invalid username or password.", "error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
                 else if (account.Type.Equals(AccountType.Volunteer)){
                     //new VolunteerView().Show();
+                    _loginWindow.Close();
                 }
                 else {
                     //new RegisteredUserView().Show();
+                    _loginWindow.Close();
                 }
 
             }
