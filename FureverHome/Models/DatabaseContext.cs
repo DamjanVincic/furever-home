@@ -66,5 +66,17 @@ public class DatabaseContext : DbContext
             .WithMany()
             .HasForeignKey(ab => ab.AnimalSpeciesId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AnimalReview>()
+            .HasOne(ar => ar.User)
+            .WithMany()
+            .HasForeignKey(ar => ar.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AnimalReview>()
+            .HasOne(ar => ar.Animal)
+            .WithMany()
+            .HasForeignKey(ar => ar.AnimalId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
