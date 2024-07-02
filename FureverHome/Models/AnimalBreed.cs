@@ -10,5 +10,9 @@
         public string Name { get; set; }
         public int AnimalSpeciesId { get; set; }
         public virtual AnimalSpecies AnimalSpecies { get; set; }
+        public override string ToString()
+        {
+            return AnimalSpecies.Name + " " + Name;
+        }
     }
 }
