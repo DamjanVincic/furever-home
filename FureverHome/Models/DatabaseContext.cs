@@ -43,5 +43,11 @@ public class DatabaseContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Account>()
+            .HasOne(a => a.User)
+            .WithOne()
+            .HasForeignKey<Account>(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
