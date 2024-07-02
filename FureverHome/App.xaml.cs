@@ -41,6 +41,8 @@ public partial class App : Application
         services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
         services.AddScoped<MainWindow>();
+        services.AddScoped<PostRequestListing>();
+        services.AddScoped<PostRequestListingViewModel>();
 
         services.AddScoped<IAccountRepository, AccountPostgresRepository>();
         services.AddScoped<IAdoptionRequestRepository, AdoptionRequestPostgresRepository>();
