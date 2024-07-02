@@ -1,4 +1,5 @@
 ﻿using FureverHome.Models;
+using FureverHome.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,11 +12,11 @@ namespace FureverHome.ViewModels
     public class CommentListingViewModel
     {
         private readonly ObservableCollection<CommentViewModel> _comments;
+        private readonly ICommentService _commentService;
 
-        public CommentListingViewModel() {
-            List<Comment> comments = new List<Comment> { new Comment(1,"username",1, new User("pera", "peric", Gender.Male, "18255325255555", "adresa", new Account("username", "password", AccountType.User))) };
-            List<CommentViewModel> commentViewModels = comments.Select(comment => new CommentViewModel(comment)).ToList();
-            _comments = new ObservableCollection<CommentViewModel>(commentViewModels);
+        public CommentListingViewModel(ICommentService commentService,int postId) {
+            _commentService = commentService;
+            _comments = new ObservableCollection<CommentViewModel>(_commentService.GetByPostId(postId).Select(comment => new CommentViewModel(comment)));
         }
         public IEnumerable<CommentViewModel> Comments => _comments;
 
