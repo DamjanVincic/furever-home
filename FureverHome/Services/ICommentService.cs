@@ -10,5 +10,6 @@ namespace FureverHome.Services
     public interface ICommentService
     {
        public List<Comment> GetAll();
+        public List<Comment> GetByPostId(int postId);   
     }
 }

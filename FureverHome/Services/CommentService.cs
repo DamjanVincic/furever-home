@@ -11,12 +11,20 @@ namespace FureverHome.Services
     public class CommentService : ICommentService
     {
         private readonly ICommentRepository _commentRepository;
-        public CommentService(ICommentRepository commentRepository) {
+        private readonly IPostRepository _postRepository;
+        public CommentService(ICommentRepository commentRepository,IPostRepository postRepository) {
             _commentRepository = commentRepository;
+            _postRepository = postRepository;
         }
         public List<Comment> GetAll()
         {
             return _commentRepository.GetAll();
         }
+        public List<Comment> GetByPostId(int postId)
+        {
+            Post post = _postRepository.GetById(postId);
+            return post?.Comments ?? new List<Comment>();
+        }
+
     }
 }
