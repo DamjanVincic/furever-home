@@ -3,6 +3,7 @@ using System;
 using FureverHome.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FureverHome.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240702110227_Update references between volunteer and volunteer aplications")]
+    partial class Updatereferencesbetweenvolunteerandvolunteeraplications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -417,6 +420,59 @@ namespace FureverHome.Migrations
                     b.UseTphMappingStrategy();
                 });
 
+            modelBuilder.Entity("FureverHome.Models.VolunteerApplication", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuthorId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("VolunteerApplications");
+                });
+
+            modelBuilder.Entity("VolunteerVolunteerApplication", b =>
+                {
+                    b.Property<int>("YesVotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("YesVotesId1")
+                        .HasColumnType("integer");
+
+                    b.HasKey("YesVotesId", "YesVotesId1");
+
+                    b.HasIndex("YesVotesId1");
+
+                    b.ToTable("VolunteerVolunteerApplication");
+                });
+
+            modelBuilder.Entity("VolunteerVolunteerApplication1", b =>
+                {
+                    b.Property<int>("NoVotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("NoVotesId1")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NoVotesId", "NoVotesId1");
+
+                    b.HasIndex("NoVotesId1");
+
+                    b.ToTable("VolunteerVolunteerApplication1");
+                });
+
             modelBuilder.Entity("FureverHome.Models.RegisteredUser", b =>
                 {
                     b.HasBaseType("FureverHome.Models.User");
@@ -572,6 +628,55 @@ namespace FureverHome.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("FureverHome.Models.VolunteerApplication", b =>
+                {
+                    b.HasOne("FureverHome.Models.Volunteer", "Author")
+                        .WithMany("Applications")
+                        .HasForeignKey("AuthorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FureverHome.Models.RegisteredUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Author");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("VolunteerVolunteerApplication", b =>
+                {
+                    b.HasOne("FureverHome.Models.VolunteerApplication", null)
+                        .WithMany()
+                        .HasForeignKey("YesVotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FureverHome.Models.Volunteer", null)
+                        .WithMany()
+                        .HasForeignKey("YesVotesId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("VolunteerVolunteerApplication1", b =>
+                {
+                    b.HasOne("FureverHome.Models.VolunteerApplication", null)
+                        .WithMany()
+                        .HasForeignKey("NoVotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FureverHome.Models.Volunteer", null)
+                        .WithMany()
+                        .HasForeignKey("NoVotesId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("FureverHome.Models.Post", b =>
                 {
                     b.Navigation("AdoptionRequests");
@@ -589,6 +694,11 @@ namespace FureverHome.Migrations
             modelBuilder.Entity("FureverHome.Models.RegisteredUser", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("FureverHome.Models.Volunteer", b =>
+                {
+                    b.Navigation("Applications");
                 });
 #pragma warning restore 612, 618
         }
