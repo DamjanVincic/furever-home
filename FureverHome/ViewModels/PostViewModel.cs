@@ -39,6 +39,7 @@ namespace FureverHome.ViewModels
         public string AnimalState => _post.Animal.HealthStatus;
         public string AnimalYear => _post.Animal.BirthYear.ToString();
         public string AnimalLocation => _post.Animal.FoundLocation;
+        public string LikesCount => _post.LikedBy.Count.ToString();
         public ICommand CommentCommand { get; }
         private void ViewComments()
         {
