@@ -42,7 +42,7 @@ namespace FureverHome.ViewModels
         public ICommand CommentCommand { get; }
         private void ViewComments()
         {
-            var newWindow = new CommentsListingView();
+            var newWindow = new CommentsListing(Id);
             newWindow.ShowDialog();
         }
 
