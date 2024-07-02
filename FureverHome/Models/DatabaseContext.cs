@@ -13,7 +13,6 @@ public class DatabaseContext : DbContext
     }
 
     public DbSet<Account> Accounts { get; set; }
-    public DbSet<Admin> Admins { get; set; }
     public DbSet<AdoptionRequest> AdoptionRequests { get; set; }
     public DbSet<Animal> Animals { get; set; }
     public DbSet<AnimalBreed> AnimalBreeds { get; set; }
@@ -48,6 +47,18 @@ public class DatabaseContext : DbContext
             .HasOne(a => a.User)
             .WithOne()
             .HasForeignKey<Account>(a => a.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AdoptionRequest>()
+            .HasOne(ar => ar.Post)
+            .WithMany(p => p.AdoptionRequests)
+            .HasForeignKey(ar => ar.PostId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<AdoptionRequest>()
+            .HasOne(ar => ar.User)
+            .WithMany(u => u.AdoptionRequests)
+            .HasForeignKey(ar => ar.UserId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
