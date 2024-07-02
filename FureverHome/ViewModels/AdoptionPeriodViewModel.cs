@@ -5,7 +5,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using FureverHome.Models;
+using FureverHome.Services;
 using GalaSoft.MvvmLight.Command;
 
 namespace FureverHome.ViewModels
@@ -14,6 +17,13 @@ namespace FureverHome.ViewModels
     {
         private int _adoptionPeriod;
         private bool _isPermanent;
+        private readonly UserService _userService = ServiceProvider.GetRequiredService<UserService>();
+        private readonly AdoptionService _adoptionService = ServiceProvider.GetRequiredService<AdoptionService>();
+        private readonly int _postId;
+        public AdoptionPeriodViewModel(int postId)
+        {
+            _postId = postId;
+        }
 
         public int AdoptionPeriod
         {
@@ -53,7 +63,16 @@ namespace FureverHome.ViewModels
 
         private void Submit()
         {
-            
+            try
+            {
+                _adoptionService.Add(_postId, UserService.LoggedInAccount.UserId, AdoptionPeriod, IsPermanent);
+                MessageBox.Show("Request for adoption sent successfully.", "Success", MessageBoxButton.OK,
+              MessageBoxImage.Information);
+            }
+            catch(InvalidInputException ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
