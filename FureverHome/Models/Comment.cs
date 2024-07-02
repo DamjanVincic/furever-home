@@ -7,19 +7,20 @@ namespace FureverHome.Models
         public Comment()
         {
         }
-        public Comment(int id,string text,int userId,User user)
+
+        public Comment(string text, int userId)
         {
-            Id = id;
             Text = text;
             UserId = userId;
-            User = user;
         }
+
         public int Id { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
+
         public int UserId { get; set; }
-        public virtual User User { get; set; }
-        
+        public virtual User User { get; set; } = null!;
+
         public int PostId { get; set; }
-        public virtual Post Post { get; set; }
+        public virtual Post Post { get; set; } = null!;
     }
 }

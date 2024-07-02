@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FureverHome.Models;
+﻿using FureverHome.Models;
 using FureverHome.Repositories;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace FureverHome.Services
 {
@@ -18,18 +12,17 @@ namespace FureverHome.Services
         public PostService(IPostRepository postRepository, IAnimalRepository animalRepository,
             IUserRepository userRepository)
         {
-            _postRepository=postRepository;
-            _animalRepository=animalRepository;
-            _userRepository=userRepository;
+            _postRepository = postRepository;
+            _animalRepository = animalRepository;
+            _userRepository = userRepository;
         }
 
         public void Add(string title, string imageLink, string name, string foundLocation,
-            string healthStatus, DateTime birthYear,
-            int animalBreedId, int colorId, int authorId)
+            string healthStatus, DateTime birthYear, int animalBreedId, int colorId, int authorId)
         {
             Animal animal = new Animal(name, foundLocation, healthStatus, birthYear, animalBreedId, colorId);
             int animalId = _animalRepository.Add(animal);
-            User author = _userRepository.GetById(authorId);
+            User author = _userRepository.GetById(authorId)!;
             bool isApproved = author is Volunteer;
             Post post = new Post(title, imageLink, DateTime.Now, PostStatus.Active, isApproved, authorId, animalId);
             _postRepository.Add(post);
@@ -37,7 +30,8 @@ namespace FureverHome.Services
 
         public void SubmitReview(int postId, bool isApproved)
         {
-            Post post = _postRepository.GetById(postId);
+            Post post = _postRepository.GetById(postId)!;
+
             if (isApproved)
             {
                 post.IsApproved = isApproved;
@@ -48,6 +42,7 @@ namespace FureverHome.Services
                 _postRepository.Delete(postId);
             }
         }
+
         public List<Post> GetAll()
         {
             return _postRepository.GetAll().Where(post=>post.IsApproved).ToList();

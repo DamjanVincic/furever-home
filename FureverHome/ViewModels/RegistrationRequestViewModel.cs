@@ -22,7 +22,7 @@ namespace FureverHome.ViewModels
         public int Id => _user.Id;
         public string FirstName => _user.FirstName;
         public string LastName => _user.LastName;
-        public string Adress => _user.Adress;
+        public string Adress => _user.Address;
         public Gender Gender => _user.Gender;
         public string Phone => _user.Phone;
     }

@@ -6,6 +6,7 @@ namespace FureverHome.Services
     public class UserService
     {
         public static Account? LoggedInAccount { get; private set; }
+
         private readonly IUserRepository _userRepository;
         private readonly IAccountRepository _accountRepository;
 
@@ -30,19 +31,21 @@ namespace FureverHome.Services
             var pendingAccounts = _accountRepository.GetAll().Where(acc => acc.Status == AccountStatus.Pending);
             return pendingAccounts.Select(acc => acc.User).ToList();
         }
+
         // user registration
-        public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender, string? phone,
-        string? adress)
+        public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender,
+            string? phone, string? address)
         {
             if (_accountRepository.GetAll().Any(account => account.UserName.Equals(username)))
                 throw new InvalidInputException("Username already exists");
-            User user = new(firstName!, lastName!, gender, phone!, adress!);
-            _userRepository.Add(user);
-            _accountRepository.Add(new(username!, password!, user.Id, AccountType.User, AccountStatus.Pending));
+
+            User user = new(firstName!, lastName!, gender, phone!, address!);
+            var userId = _userRepository.Add(user);
+            _accountRepository.Add(new Account(username!, password!, userId, AccountType.User, AccountStatus.Pending));
         }
 
         public void Update(int id, string? firstName, string? lastName, Gender gender, string? phone,
-            string? adress)
+            string? address)
         {
             User user = _userRepository.GetById(id) ?? throw new InvalidInputException("User doesn't exist");
 
@@ -50,7 +53,7 @@ namespace FureverHome.Services
             user.LastName = lastName!;
             user.Gender = gender;
             user.Phone = phone!;
-            user.Adress = adress!;
+            user.Address = address!;
 
             _userRepository.Update(user);
         }
@@ -61,23 +64,27 @@ namespace FureverHome.Services
 
             _userRepository.Delete(id);
 
-            if (LoggedInAccount?.Id == id)
+            if (LoggedInAccount?.UserId == id)
                 LoggedInAccount = null;
         }
 
-        public Account? Login(string username, string password)
+        public Account Login(string username, string password)
         {
-            Account? account = _accountRepository.GetAll().FirstOrDefault(account => account.UserName.Equals(username) && account.Password.Equals(password)) ?? throw new InvalidInputException("Invalid input");
-            if (account!.Status.Equals(AccountStatus.Pending))
+            Account account =
+                _accountRepository.GetAll().FirstOrDefault(account =>
+                    account.UserName.Equals(username) && account.Password.Equals(password)) ??
+                throw new InvalidInputException("Invalid username or password.");
+
+            switch (account.Status)
             {
-                throw new InvalidOperationException("You are on the approval waiting list.");
+                case AccountStatus.Pending:
+                    throw new InvalidInputException("You are on the approval waiting list.");
+                case AccountStatus.Blacklisted:
+                    throw new InvalidOperationException("You are on the black list.");
+                default:
+                    LoggedInAccount = account;
+                    return account;
             }
-            if (account!.Status.Equals(AccountStatus.Blacklisted))
-            {
-                throw new InvalidOperationException("You are on the black list.");
-            }
-            LoggedInAccount = account;
-            return account;
         }
 
         public void Logout()
@@ -87,6 +94,5 @@ namespace FureverHome.Services
 
             LoggedInAccount = null;
         }
-
     }
 }

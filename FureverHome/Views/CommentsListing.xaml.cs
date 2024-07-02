@@ -26,11 +26,10 @@ namespace FureverHome.Views
     /// </summary>
     public partial class CommentsListing : Window
     {
-        private readonly ICommentService _commentService = ServiceProvider.GetRequiredService<ICommentService>();
         public CommentsListing(int postId)
         {
             InitializeComponent();
-            DataContext = new CommentListingViewModel(_commentService,postId);
+            DataContext = new CommentListingViewModel(postId);
         }
     }
 }
