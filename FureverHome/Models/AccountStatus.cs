@@ -1,6 +1,6 @@
 ﻿namespace FureverHome.Models
 {
-    public enum UserStatus
+    public enum AccountStatus
     {
         Pending,
         Blacklisted,

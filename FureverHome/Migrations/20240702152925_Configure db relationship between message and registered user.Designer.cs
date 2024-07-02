@@ -3,6 +3,7 @@ using System;
 using FureverHome.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace FureverHome.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240702152925_Configure db relationship between message and registered user")]
+    partial class Configuredbrelationshipbetweenmessageandregistereduser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -389,28 +392,18 @@ namespace FureverHome.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int?>("PostId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("PostId");
 
                     b.ToTable("Users");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
 
                     b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("PostUser", b =>
-                {
-                    b.Property<int>("LikedById")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("PostId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("LikedById", "PostId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostUser");
                 });
 
             modelBuilder.Entity("FureverHome.Models.RegisteredUser", b =>
@@ -555,19 +548,11 @@ namespace FureverHome.Migrations
                     b.Navigation("Author");
                 });
 
-            modelBuilder.Entity("PostUser", b =>
+            modelBuilder.Entity("FureverHome.Models.User", b =>
                 {
-                    b.HasOne("FureverHome.Models.User", null)
-                        .WithMany()
-                        .HasForeignKey("LikedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("FureverHome.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("LikedBy")
+                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("FureverHome.Models.Post", b =>
@@ -575,6 +560,8 @@ namespace FureverHome.Migrations
                     b.Navigation("AdoptionRequests");
 
                     b.Navigation("Comments");
+
+                    b.Navigation("LikedBy");
                 });
 
             modelBuilder.Entity("FureverHome.Models.User", b =>
