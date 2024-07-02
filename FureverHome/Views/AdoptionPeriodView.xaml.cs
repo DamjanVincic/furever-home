@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FureverHome.ViewModels;
 
 namespace FureverHome.Views
 {
@@ -19,9 +20,10 @@ namespace FureverHome.Views
     /// </summary>
     public partial class AdoptionPeriodView : Window
     {
-        public AdoptionPeriodView()
+        public AdoptionPeriodView(int id)
         {
             InitializeComponent();
+            DataContext = new AdoptionPeriodViewModel(id);  
         }
     }
 }
