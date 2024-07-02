@@ -21,7 +21,7 @@
             <TextBlock Text="{Binding AnimalYear, StringFormat='{}Birth Year: {0}'}" />
             <TextBlock Text="{Binding AnimalLocation, StringFormat='{}Found Location: {0}'}" />
             <Button Content="💬" Command="{Binding CommentCommand}" Background="#55bcbb" Margin="5 5 5 5" Foreground="White" Width="30" Height="30"/>
-            <Button Content="Adopt❤️" Command="{Binding AdopttCommand}" Background="LightPink" Margin="5 5 5 5" Foreground="White" Width="100" Height="30"/>
+            <Button Content="Adopt❤️" Command="{Binding AdoptCommand}" Background="LightPink" Margin="5 5 5 5" Foreground="White" Width="100" Height="30"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="👍" Margin="0,0,5,0"/>
                 <TextBlock Text="{Binding LikesCount}" />

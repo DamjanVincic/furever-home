@@ -31,8 +31,8 @@ namespace FureverHome.Services
             if (_accountRepository.GetAll().Any(account => account.UserName.Equals(username)))
                 throw new InvalidInputException("Username already exists");
             User user = new(firstName!, lastName!, gender, phone!, adress!);
-            _userRepository.Add(user);
-            _accountRepository.Add(new(username!, password!, user.Id, AccountType.User, AccountStatus.Pending));
+            int id = _userRepository.Add(user);
+            _accountRepository.Add(new(username!, password!, id, AccountType.User, AccountStatus.Pending));
         }
 
         public void Update(int id, string? firstName, string? lastName, Gender gender, string? phone,

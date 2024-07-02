@@ -16,10 +16,11 @@ namespace FureverHome.Repositories.PostgresRepositories
             _dbContext = dbContext;
         }
 
-        public void Add(User user)
+        public int Add(User user)
         {
-            _dbContext.Users.Add(user);
+            var addedUser = _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
+            return addedUser.Entity.Id;
         }
 
         public void Delete(int id)
