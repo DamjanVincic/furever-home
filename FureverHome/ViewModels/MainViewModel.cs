@@ -15,10 +15,10 @@ namespace FureverHome.ViewModels
     public class MainViewModel
     {
         private readonly ObservableCollection<PostViewModel> _posts;
-        public MainViewModel(Window loginWindow)
+        public MainViewModel()
         {
-            List<Post> posts = new List<Post>
-            {
+            List<Post> posts =
+            [
                 new Post
                 {
                     Id = 1,
@@ -27,8 +27,8 @@ namespace FureverHome.ViewModels
                     Date = DateTime.Now,
                     Status = PostStatus.Active,
                     IsApproved = true,
-                    AdoptionRequests = new List<AdoptionRequest>(),
-                    Comments = new List<Comment>(),
+                    AdoptionRequests = [],
+                    Comments = [],
                     AuthorId = 1,
                     Animal = new Animal(1, "kuca", "lokacija1", "zdrav ko dren", DateTime.Now, 1, new AnimalBreed(1, "zlatni retriver", 1, new AnimalSpecies(1, "pas")),1, new Color(1,"crvena"))
                 },
@@ -40,13 +40,13 @@ namespace FureverHome.ViewModels
                     Date = DateTime.Now,
                     Status = PostStatus.Active,
                     IsApproved = true,
-                    AdoptionRequests = new List<AdoptionRequest>(),
-                    Comments = new List<Comment>(),
+                    AdoptionRequests = [],
+                    Comments = [],
                     AuthorId = 1,
                     Animal = new Animal(2, "macka", "lokacija2", "zdrava", DateTime.Now, 2, new AnimalBreed(2, "persijska macka", 2, new AnimalSpecies(2, "macka")),1, new Color(1,"crvena"))
                 },
                 // Add more Post objects as needed...
-            };
+            ];
 
             List<PostViewModel> postViewModels = posts.Select(post => new PostViewModel(post)).ToList();
             _posts = new ObservableCollection<PostViewModel>(postViewModels);

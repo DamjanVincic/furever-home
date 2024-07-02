@@ -9,7 +9,7 @@
             WindowStartupLocation="CenterScreen"
             Background="#bbe5e4">
         <Window.Resources>
-            <CollectionViewSource x:Key="myCollectionViewSource" Source="{Binding RegistrationRequestCollectionView}" />
+        <CollectionViewSource x:Key="myCollectionViewSource" Source="{Binding RegistrationRequestsCollectionView}" />
         </Window.Resources>
         <Grid>
             <Grid.RowDefinitions>
@@ -28,16 +28,9 @@
 
             <TextBlock Grid.Row="0" Grid.ColumnSpan="2" FontWeight="Bold" >REGISTRATION REQUESTS</TextBlock>
 
-            <ListView Grid.Row="1" Grid.RowSpan="9" Padding="5" Margin="5" ItemsSource="{Binding RegistrationRequest}" SelectedItem="{Binding SelectedItem}">
+        <ListView Grid.Row="1" Grid.RowSpan="9" Padding="5" Margin="5" ItemsSource="{Binding RegistrationRequests}" SelectedItem="{Binding SelectedItem}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Username">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding Username}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="First name">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

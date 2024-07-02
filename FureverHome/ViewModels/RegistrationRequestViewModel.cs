@@ -13,8 +13,8 @@ namespace FureverHome.ViewModels
 {
     internal class RegistrationRequestViewModel : ViewModelBase
     {
-        private readonly RegisteredUser _user;
-        public RegistrationRequestViewModel(RegisteredUser user)
+        private readonly User _user;
+        public RegistrationRequestViewModel(User user)
         {
             _user = user;
         }

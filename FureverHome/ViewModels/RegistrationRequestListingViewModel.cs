@@ -13,8 +13,9 @@ namespace FureverHome.ViewModels
     internal class RegistrationRequestListingViewModel: ViewModelBase
     {
 
-        private readonly Volunteer _volunteer = UserService.LoggedInAccount!.User as Volunteer ??
+        private readonly User _user = UserService.LoggedInAccount!.User ??
                                             throw new InvalidOperationException("No one is logged in.");
+        
 
         private readonly ObservableCollection<RegistrationRequestViewModel> _registrationRequests;
         private readonly UserService _userService = ServiceProvider.GetRequiredService<UserService>();
@@ -24,7 +25,7 @@ namespace FureverHome.ViewModels
         public RegistrationRequestListingViewModel()
         {
             _registrationRequests = new ObservableCollection<RegistrationRequestViewModel>(_userService.GetPendingUsers()
-                .Select(user => new RegistrationRequestViewModel((RegisteredUser)user)));
+                .Select(user => new RegistrationRequestViewModel(user)));
             RegistrationRequestsCollectionView = CollectionViewSource.GetDefaultView(_registrationRequests);
             ApproveCommand = new RelayCommand(Approve);
             RejectCommand = new RelayCommand(Reject);
@@ -46,27 +47,40 @@ namespace FureverHome.ViewModels
                 MessageBox.Show("Please select a request.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _volunteerService.ApproveRegistrationRequest(SelectedItem.Id);
-            MessageBox.Show("Request is approved.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-            RefreshRegistrationRequests();
+            try
+            {
+                _volunteerService.ApproveRegistrationRequest(SelectedItem.Id);
+                MessageBox.Show("Request is approved.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                RefreshRegistrationRequests();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void Reject()
         {
             if (SelectedItem == null)
             {
-                MessageBox.Show("Request is rejected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Please select a request.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            _volunteerService.RejectRegistrationRequest(SelectedItem.Id);
-            RefreshRegistrationRequests();
+            try {
+                _volunteerService.RejectRegistrationRequest(SelectedItem.Id);
+            MessageBox.Show("Request is rejected.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                RefreshRegistrationRequests();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        private void RefreshRegistrationRequests(string propertyName = "", string sortingWay = "ascending")
+        private void RefreshRegistrationRequests()
         {
             _registrationRequests.Clear();
-            _userService.GetPendingUsers().ForEach(user => _registrationRequests.Add(new RegistrationRequestViewModel((RegisteredUser)user)));
+            _userService.GetPendingUsers().ForEach(user => _registrationRequests.Add(new RegistrationRequestViewModel(user)));
             RegistrationRequestsCollectionView.Refresh();
         }
 

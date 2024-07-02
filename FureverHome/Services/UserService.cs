@@ -72,6 +72,10 @@ namespace FureverHome.Services
             {
                 throw new InvalidOperationException("You are on the approval waiting list.");
             }
+            if (account!.Status.Equals(AccountStatus.Blacklisted))
+            {
+                throw new InvalidOperationException("You are on the black list.");
+            }
             LoggedInAccount = account;
             return account;
         }
