@@ -1,6 +1,8 @@
-﻿
-namespace FureverHome.Models
-{
+using System;
+
+namespace FureverHome.Models { 
+
+
     public class InvalidInputException : Exception
     {
         public InvalidInputException()
