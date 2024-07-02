@@ -23,6 +23,8 @@ namespace FureverHome.ViewModels
         public AdoptionPeriodViewModel(int postId)
         {
             _postId = postId;
+            SubmitCommand = new RelayCommand(Submit);
+
         }
 
         public int AdoptionPeriod
@@ -56,10 +58,6 @@ namespace FureverHome.ViewModels
 
         public ICommand SubmitCommand { get; }
 
-        public AdoptionPeriodViewModel()
-        {
-            SubmitCommand = new RelayCommand(Submit);
-        }
 
         private void Submit()
         {
