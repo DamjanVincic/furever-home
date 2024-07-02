@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FureverHome.Models
+﻿namespace FureverHome.Models
 {
-    public class VolunteerApplication : User
+    public class VolunteerApplication
     {
-        public int Id {  get; set; }
-        public List<Volunteer> YesVotes { get; set; }
-        public List<Volunteer> NoVotes { get; set; }
-        public int AuthorId {  get; set; }
-        public Volunteer Author { get; set; }
-        public int RegisteredUserId {  get; set; }
-        public RegisteredUser RegisteredUser { get; set; }
+        public int Id { get; set; }
+        public virtual List<Volunteer> YesVotes { get; set; }
+        public virtual List<Volunteer> NoVotes { get; set; }
+        public int AuthorId { get; set; }
+        public virtual Volunteer Author { get; set; }
+        public int UserId { get; set; }
+        public virtual RegisteredUser User { get; set; }
     }
 }
