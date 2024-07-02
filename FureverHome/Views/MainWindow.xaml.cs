@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using FureverHome.ViewModels;
 
-namespace FureverHome
+namespace FureverHome.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
