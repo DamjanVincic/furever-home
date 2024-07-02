@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FureverHome": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\Documents\\FTN\\specifikacija i modeliranje softvera\\furever-home\\FureverHome"
+    }
+  }
+}

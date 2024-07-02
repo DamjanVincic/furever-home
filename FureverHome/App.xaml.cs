@@ -3,6 +3,7 @@ using FureverHome.Models;
 using FureverHome.Repositories;
 using FureverHome.Repositories.PostgresRepositories;
 using FureverHome.Services;
+using FureverHome.ViewModels;
 using FureverHome.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,6 +45,8 @@ public partial class App : Application
         services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
 
         services.AddScoped<MainWindow>();
+        services.AddScoped<PostRequestListing>();
+        services.AddScoped<PostRequestListingViewModel>();
 
         services.AddScoped<IAccountRepository, AccountPostgresRepository>();
         services.AddScoped<IAdoptionRequestRepository, AdoptionRequestPostgresRepository>();
@@ -57,7 +60,8 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
-        
+
+        services.AddScoped<VolunteerService>();
         services.AddScoped<UserService>();
         services.AddScoped<CommentService>();
         services.AddScoped<AnimalBreedService>();

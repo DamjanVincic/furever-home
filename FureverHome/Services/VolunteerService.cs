@@ -5,13 +5,11 @@ namespace FureverHome.Services
 {
     public class VolunteerService
     {
-        private readonly UserService _userService;
         private readonly IAccountRepository _accountRepository;
         private readonly IUserRepository _userRepository;
 
-        public VolunteerService(UserService userService, IAccountRepository accountRepository, IUserRepository userRepository)
+        public VolunteerService(IAccountRepository accountRepository, IUserRepository userRepository)
         {
-            _userService = userService;
             _accountRepository = accountRepository;
             _userRepository = userRepository;
         }
@@ -26,5 +24,17 @@ namespace FureverHome.Services
             _accountRepository.Add(new Account(username!, password!, userId, AccountType.Volunteer, AccountStatus.Active));
         }
 
+        public void RejectRegistrationRequest(int userId)
+        {
+            List<Account> accounts = _accountRepository.GetAll().Where(account => account.UserId == userId).ToList() ?? throw new Exception("Account does not exist");
+            _accountRepository.Delete(accounts[0].Id);
+            _userRepository.Delete(userId);
+        }
+
+        public void ApproveRegistrationRequest(int userId)
+        {
+            List<Account> accounts = _accountRepository.GetAll().Where(account => account.UserId == userId).ToList() ?? throw new Exception("Account does not exist");
+            accounts[0].Status = AccountStatus.Active;
+        }
     }
 }

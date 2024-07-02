@@ -26,6 +26,12 @@ namespace FureverHome.Services
             return _userRepository.GetById(id);
         }
 
+        public List<User> GetPendingUsers()
+        {
+            var pendingAccounts = _accountRepository.GetAll().Where(acc => acc.Status == AccountStatus.Pending);
+            return pendingAccounts.Select(acc => acc.User).ToList();
+        }
+
         // user registration
         public void Add(string? firstName, string? lastName, string? username, string? password, Gender gender,
             string? phone, string? address)
@@ -69,13 +75,16 @@ namespace FureverHome.Services
                     account.UserName.Equals(username) && account.Password.Equals(password)) ??
                 throw new InvalidInputException("Invalid username or password.");
 
-            if (account.Status.Equals(AccountStatus.Pending))
+            switch (account.Status)
             {
-                throw new InvalidInputException("You are on the approval waiting list.");
+                case AccountStatus.Pending:
+                    throw new InvalidInputException("You are on the approval waiting list.");
+                case AccountStatus.Blacklisted:
+                    throw new InvalidOperationException("You are on the black list.");
+                default:
+                    LoggedInAccount = account;
+                    return account;
             }
-
-            LoggedInAccount = account;
-            return account;
         }
 
         public void Logout()
