@@ -15,5 +15,6 @@
         public int AccountId { get; set; }
         public virtual Account Account { get; set; }
         public virtual List<AdoptionRequest> AdoptionRequests { get; set; } = [];
+        public UserStatus Status { get; set; }
     }
 }
