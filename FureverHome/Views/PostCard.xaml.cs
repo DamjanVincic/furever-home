@@ -22,10 +22,16 @@ namespace FureverHome.Views
     /// </summary>
     public partial class PostCard : UserControl
     {
+        public PostCard()
+        {
+            InitializeComponent();
+        }
+
         public PostCard(Post post)
         {
             InitializeComponent();
             DataContext = new PostViewModel(post);
         }
     }
+
 }
