@@ -4,6 +4,7 @@ using System.Windows.Input;
 using System.Windows;
 using GalaSoft.MvvmLight.Command;
 using FureverHome.Services;
+using FureverHome.Views;
 
 namespace FureverHome.ViewModels
 {
@@ -34,14 +35,11 @@ namespace FureverHome.ViewModels
             {
                 _userService.Add(FirstName!, LastName!, Username!, Password!, Gender, Phone!, Adress);
 
-                MessageBox.Show("User registered successfully.", "Success", MessageBoxButton.OK,
+                MessageBox.Show("You are added on the approval waiting list.", "Success", MessageBoxButton.OK,
                     MessageBoxImage.Information);
 
-                _userService.Login(Username!, Password!);
-
-                //new StudentView().Show();
                 _registerWindow.Close();
-                Application.Current.MainWindow?.Close();
+                
             }
             catch (InvalidInputException exception)
             {
