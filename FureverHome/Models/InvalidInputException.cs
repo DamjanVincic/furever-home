@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 ﻿using System;
 
 namespace FureverHome.Models
+=======
+﻿namespace FureverHome.Models
+>>>>>>> develop
 {
     public class InvalidInputException : Exception
     {

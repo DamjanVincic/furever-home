@@ -1,9 +1,7 @@
-﻿using System;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Reflection;
-using System.Windows;
+﻿using System.Windows;
+using FureverHome.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FureverHome;
 
@@ -14,6 +12,10 @@ public partial class App : Application
 {
     public App()
     {
+        DotNetEnv.Env.Load("../.env");
+
+        ServiceCollection services = new ServiceCollection();
+        ConfigureServices(services);
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -24,4 +26,9 @@ public partial class App : Application
         mainWindow.Show();
     }
 
+    private void ConfigureServices(IServiceCollection services)
+    {
+        string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? throw new InvalidInputException("Connection string not found in .env file.");
+        services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(connectionString));
+    }
 }
