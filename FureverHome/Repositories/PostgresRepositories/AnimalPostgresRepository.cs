@@ -16,11 +16,11 @@ namespace FureverHome.Repositories.PostgresRepositories
             _dbContext = dbContext;
         }
 
-        public Animal Add(Animal animal)
+        public int Add(Animal animal)
         {
             var addedAnimal = _dbContext.Animals.Add(animal);
             _dbContext.SaveChanges();
-            return addedAnimal.Entity;
+            return addedAnimal.Entity.Id;
         }
 
         public void Delete(int id)
