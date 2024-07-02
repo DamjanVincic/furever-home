@@ -27,6 +27,19 @@
             Color = color;
         }
 
+        public Animal(string name, string foundLocation, string healthStatus, DateTime birthYear,
+            int animalBreedId, int colorId)
+        {
+            Name = name;
+            FoundLocation = foundLocation;
+            HealthStatus = healthStatus;
+            BirthYear = birthYear;
+            AnimalBreedId = animalBreedId;
+            ColorId = colorId;
+        }
+
+
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string FoundLocation { get; set; }
