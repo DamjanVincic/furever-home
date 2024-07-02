@@ -90,5 +90,10 @@ public class DatabaseContext : DbContext
             .WithMany(p => p.Comments)
             .HasForeignKey(c => c.PostId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Message>()
+            .HasOne<RegisteredUser>()
+            .WithMany(ru => ru.Messages)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
