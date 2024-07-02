@@ -1,11 +1,7 @@
-<<<<<<< HEAD
-﻿using System;
+using System;
 
-namespace FureverHome.Models
-=======
-﻿namespace FureverHome.Models
->>>>>>> develop
-{
+namespace FureverHome.Models { 
+
     public class InvalidInputException : Exception
     {
         public InvalidInputException()
