@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace FureverHome.Services
 {
-    internal class PostService
+    public class PostService
     {
         private readonly IPostRepository _postRepository;
         private readonly IAnimalRepository _animalRepository;
@@ -23,7 +23,7 @@ namespace FureverHome.Services
             _userRepository=userRepository;
         }
 
-        public void Add(string title, string imageLink, DateTime date, string name, string foundLocation,
+        public void Add(string title, string imageLink, string name, string foundLocation,
             string healthStatus, DateTime birthYear,
             int animalBreedId, int colorId, int authorId)
         {
@@ -31,7 +31,7 @@ namespace FureverHome.Services
             int animalId = _animalRepository.Add(animal);
             User author = _userRepository.GetById(authorId);
             bool isApproved = author is Volunteer;
-            Post post = new Post(title, imageLink, date, PostStatus.Active, isApproved, authorId, animalId);
+            Post post = new Post(title, imageLink, DateTime.Now, PostStatus.Active, isApproved, authorId, animalId);
             _postRepository.Add(post);
         }
 
@@ -45,12 +45,17 @@ namespace FureverHome.Services
             }
             else
             {
-                //TODO: delete post
+                _postRepository.Delete(postId);
             }
         }
         public List<Post> GetAll()
         {
-            return _postRepository.GetAll();
+            return _postRepository.GetAll().Where(post=>post.IsApproved).ToList();
+        }
+
+        public List<Post> GetUnapproved()
+        {
+            return _postRepository.GetAll().Where(post => !post.IsApproved).ToList();
         }
     }
 }
