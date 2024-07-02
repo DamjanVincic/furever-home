@@ -9,10 +9,8 @@ namespace FureverHome.Repositories
 {
     public interface IAssociationRepository
     {
-        List<Association> GetAll();
-        Association? GetById(int id);
+        Association Get();
         void Add(Association association);
         void Update(Association association);
-        void Delete(int id);
     }
 }
