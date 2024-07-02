@@ -2,6 +2,10 @@
 {
     public class VolunteerApplication
     {
+        public VolunteerApplication()
+        {
+        }
+        
         public int Id { get; set; }
         public virtual List<Volunteer> YesVotes { get; set; }
         public virtual List<Volunteer> NoVotes { get; set; }
