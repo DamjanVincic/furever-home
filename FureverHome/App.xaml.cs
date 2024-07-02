@@ -51,5 +51,8 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
+        services.AddScoped<AnimalBreedService>();
+        services.AddScoped<ColorService>();
+        services.AddScoped<PostService>();
     }
 }
