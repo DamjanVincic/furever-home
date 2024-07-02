@@ -16,7 +16,7 @@ namespace FureverHome.Models
         public string HealthStatus { get; set; }
         public DateTime BirthYear { get; set; }
         public int AnimalSpeciesId {  get; set; }
-        public AnimalSpicies AnimalSpicies { get; set; }
+        public AnimalBreed AnimalBreed { get; set; }
         public int ColorId {  get; set; }
         public Color Color {  get; set; }
 

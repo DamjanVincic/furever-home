@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace FureverHome.Models
 {
-    public class AnimalSpicies
+    public class AnimalSpecies
     {
 
-        public AnimalSpicies() { }
+        public AnimalSpecies() { }
 
         public int Id { get; set; }
         public string Name { get; set; }
-        public virtual AnimalBreed Breed { get; set; }
     }
 
 }
