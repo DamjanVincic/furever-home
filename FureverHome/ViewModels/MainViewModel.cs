@@ -22,7 +22,6 @@ namespace FureverHome.ViewModels
         {
             _posts = new ObservableCollection<PostViewModel>(_postService.GetAll().Select(post=>new PostViewModel(post)));
             LoginCommand = new RelayCommand(Login);
-
         }
 
         public IEnumerable<PostViewModel> Posts => _posts;
