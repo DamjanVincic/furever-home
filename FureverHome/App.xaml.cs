@@ -54,6 +54,8 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
-        services.AddScoped<UserService, UserService>();
+        services.AddScoped<UserService>();
+        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<PostService>();
     }
 }
