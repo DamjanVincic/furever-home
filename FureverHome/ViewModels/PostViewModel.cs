@@ -24,7 +24,7 @@ namespace FureverHome.ViewModels
         public string ImageLink => _post.ImageLink;
         public DateTime Date => _post.Date;
         public PostStatus Status => _post.Status;
-        public string Author => _post.Author.FirstName;
+        public string Username => _post.Author.FirstName + " " + _post.Author.LastName;
         public Animal Animal => _post.Animal;
         public string AnimalBreed => _post.Animal.AnimalBreed.Name;
         public string AnimalSpecies => _post.Animal.AnimalBreed.AnimalSpecies.Name;

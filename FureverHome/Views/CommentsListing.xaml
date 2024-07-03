@@ -8,7 +8,7 @@
         Title="CommentsListing" Height="450" Width="800">
     <Grid>
 
-        <ListView Grid.Row="5" Grid.RowSpan="9" Padding="5" Margin="5" ItemsSource="{Binding Comments}" SelectedItem="{Binding SelectedItem}">
+        <ListView Grid.Row="5" Grid.RowSpan="9" Padding="5" Margin="5" ItemsSource="{Binding Comments}">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Username">

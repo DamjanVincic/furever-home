@@ -12,6 +12,6 @@ namespace FureverHome.ViewModels
         }
 
         public string Text => _comment.Text;
-        public string UserName => _comment.User.FirstName + " " + _comment.User.LastName;
+        public string Username => _comment.User.FirstName + " " + _comment.User.LastName;
     }
 }

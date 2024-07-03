@@ -13,7 +13,7 @@
 
             <TextBlock Text="{Binding Date, StringFormat='{}Date Found: {0:MMMM dd, yyyy}'}" Foreground="Gray" />
             <TextBlock Text="{Binding Status, StringFormat='{}Status: {0}'}" />
-            <TextBlock Text="{Binding Author, StringFormat='{}Author: {0}'}" />
+            <TextBlock Text="{Binding Username, StringFormat='{}Author: {0}'}" />
             <TextBlock Text="{Binding AnimalBreed, StringFormat='{}Breed: {0}'}" />
             <TextBlock Text="{Binding AnimalSpecies, StringFormat='{}Species: {0}'}" />
             <TextBlock Text="{Binding AnimalColor, StringFormat='{}Color: {0}'}" />
