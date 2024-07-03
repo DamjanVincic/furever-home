@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Command;
 using System.Windows;
 using System.Windows.Input;
 using FureverHome.Services;
+using System.Security.RightsManagement;
 
 namespace FureverHome.ViewModels
 {
@@ -20,10 +21,14 @@ namespace FureverHome.ViewModels
             
             LoginCommand = new RelayCommand(Login);
             RegistrationCommand = new RelayCommand(ViewregistrationRequests);
+            CreatePostCommand = new RelayCommand(CreatePost);
+            LogoutCommand = new RelayCommand(Logout);
         }
 
         public IEnumerable<PostViewModel> Posts => _posts;
         public ICommand LoginCommand { get; }
+        public ICommand CreatePostCommand { get; }
+        public ICommand LogoutCommand { get; }
 
         private void Login()
         {
@@ -37,5 +42,23 @@ namespace FureverHome.ViewModels
             newWindow.ShowDialog();
 
         }
-    }
+        private void CreatePost()
+        {
+            var window = new AddPostView();
+            window.ShowDialog();
+        }
+        private void Logout()
+        {
+            UserService.LoggedInAccount = null;
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window != mainWindow)
+                {
+                    window.Close();
+                }
+            }
+        }
+        }
 }
