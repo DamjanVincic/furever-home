@@ -95,6 +95,12 @@ public class DatabaseContext : DbContext
             .HasForeignKey(c => c.PostId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        modelBuilder.Entity<Comment>(entity =>
+        {
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+        });
+
         modelBuilder.Entity<Message>()
             .HasOne<RegisteredUser>()
             .WithMany(ru => ru.Messages)
