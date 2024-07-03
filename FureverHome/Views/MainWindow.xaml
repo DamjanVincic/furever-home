@@ -23,7 +23,6 @@
             </Grid.ColumnDefinitions>
 
             <Button Command="{Binding LoginCommand}" Content="Login" Grid.Column="1" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="80" Height="auto" Background="#55bcbb" Foreground="White" />
-            <Button Command="{Binding ViewregistrationRequestsCommand}" Content="Review registration requests" Grid.Column="0" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="auto" Height="auto" Background="#55bcbb" Foreground="White" />
         </Grid>
 
         <Grid Grid.Row="1">

@@ -19,7 +19,7 @@ namespace FureverHome.ViewModels
             _posts = new ObservableCollection<PostViewModel>(_postService.GetAll().Select(post => new PostViewModel(post)));
             
             LoginCommand = new RelayCommand(Login);
-            ViewregistrationRequestsCommand = new RelayCommand(ViewregistrationRequests);
+            RegistrationCommand = new RelayCommand(ViewregistrationRequests);
         }
 
         public IEnumerable<PostViewModel> Posts => _posts;
@@ -30,7 +30,7 @@ namespace FureverHome.ViewModels
             var newWindow = new LoginView();
             newWindow.ShowDialog();
         }
-        public ICommand ViewregistrationRequestsCommand { get; }
+        public ICommand RegistrationCommand { get; }
         private void ViewregistrationRequests()
         {
             var newWindow = new RegistrationRequestListingView();
