@@ -67,5 +67,7 @@ public partial class App : Application
         services.AddScoped<AnimalBreedService>();
         services.AddScoped<ColorService>();
         services.AddScoped<PostService>();
+        services.AddScoped<AdoptionService>();
+
     }
 }

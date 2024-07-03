@@ -13,7 +13,7 @@
 
             <TextBlock Text="{Binding Date, StringFormat='{}Date Found: {0:MMMM dd, yyyy}'}" Foreground="Gray" />
             <TextBlock Text="{Binding Status, StringFormat='{}Status: {0}'}" />
-            <TextBlock Text="{Binding Author, StringFormat='{}Author: {0}'}" />
+            <TextBlock Text="{Binding Username, StringFormat='{}Author: {0}'}" />
             <TextBlock Text="{Binding AnimalBreed, StringFormat='{}Breed: {0}'}" />
             <TextBlock Text="{Binding AnimalSpecies, StringFormat='{}Species: {0}'}" />
             <TextBlock Text="{Binding AnimalColor, StringFormat='{}Color: {0}'}" />
@@ -21,6 +21,11 @@
             <TextBlock Text="{Binding AnimalYear, StringFormat='{}Birth Year: {0}'}" />
             <TextBlock Text="{Binding AnimalLocation, StringFormat='{}Found Location: {0}'}" />
             <Button Content="💬" Command="{Binding CommentCommand}" Background="#55bcbb" Margin="5 5 5 5" Foreground="White" Width="30" Height="30"/>
+            <Button Content="Adopt❤️" Command="{Binding AdoptCommand}" Background="LightPink" Margin="5 5 5 5" Foreground="White" Width="100" Height="30"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="👍" Margin="0,0,5,0"/>
+                <TextBlock Text="{Binding LikesCount}" />
+            </StackPanel>
         </StackPanel>
     </Border>
 </UserControl>

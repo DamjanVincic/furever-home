@@ -5,7 +5,7 @@ namespace FureverHome.Services
 {
     public class UserService
     {
-        public static Account? LoggedInAccount { get; private set; }
+        public static Account? LoggedInAccount { get;  set; }
 
         private readonly IUserRepository _userRepository;
         private readonly IAccountRepository _accountRepository;
@@ -53,7 +53,7 @@ namespace FureverHome.Services
             user.LastName = lastName!;
             user.Gender = gender;
             user.Phone = phone!;
-            user.Address = address!;
+            user.Adress = address!;
 
             _userRepository.Update(user);
         }

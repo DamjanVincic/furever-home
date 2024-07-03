@@ -12,7 +12,7 @@
             LastName = lastName;
             Gender = gender;
             Phone = phone;
-            Address = address;
+            Adress = address;
         }
 
         public int Id { get; set; }
@@ -20,7 +20,7 @@
         public string LastName { get; set; } = null!;
         public Gender Gender { get; set; }
         public string Phone { get; set; } = null!;
-        public string Address { get; set; } = null!;
+        public string Adress { get; set; } = null!;
         public virtual List<AdoptionRequest> AdoptionRequests { get; set; } = [];
     }
 }

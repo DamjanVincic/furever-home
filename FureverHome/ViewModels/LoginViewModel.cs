@@ -41,12 +41,11 @@ namespace FureverHome.ViewModels
 
                 if (account.Type.Equals(AccountType.Volunteer))
                 {
-                    //new VolunteerView().Show();
+                    new MainWindowVolunteer().Show();
                     _loginWindow.Close();
                 }
-                else
-                {
-                    //new RegisteredUserView().Show();
+                else {
+                    new MainWindowUser().Show();
                     _loginWindow.Close();
                 }
             }
