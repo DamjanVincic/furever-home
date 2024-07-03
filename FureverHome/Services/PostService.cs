@@ -27,6 +27,11 @@ namespace FureverHome.Services
             Post post = new Post(title, imageLink, DateTime.Now, PostStatus.Active, isApproved, authorId, animalId);
             _postRepository.Add(post);
         }
+        
+        public Post? GetById(int id)
+        {
+            return _postRepository.GetById(id);
+        }
 
         public void SubmitReview(int postId, bool isApproved)
         {
