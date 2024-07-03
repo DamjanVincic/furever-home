@@ -3,6 +3,7 @@ using FureverHome.Models;
 using FureverHome.Repositories;
 using FureverHome.Repositories.PostgresRepositories;
 using FureverHome.Services;
+using FureverHome.ViewModels;
 using FureverHome.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,9 @@ public partial class App : Application
         ConfigureServices(services);
         
         ServiceProvider.Instance = services.BuildServiceProvider();
+
+        var postRepository = ServiceProvider.GetRequiredService<IPostRepository>();
+        postRepository.Delete(1);
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -56,9 +60,10 @@ public partial class App : Application
         services.AddScoped<IMessageRepository, MessagePostgresRepository>();
         services.AddScoped<IPostRepository, PostPostgresRepository>();
         services.AddScoped<IUserRepository, UserPostgresRepository>();
-        services.AddScoped<VolunteerService, VolunteerService>();
+
+        services.AddScoped<VolunteerService>();
         services.AddScoped<UserService>();
-        services.AddScoped<ICommentService, CommentService>();
+        services.AddScoped<CommentService>();
         services.AddScoped<AnimalBreedService>();
         services.AddScoped<ColorService>();
         services.AddScoped<PostService>();

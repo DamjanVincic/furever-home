@@ -31,16 +31,16 @@ namespace FureverHome.ViewModels
             new RegisterView().Show();
             _loginWindow.Close();
         }
+
         private void Login()
         {
-            try{
-                Account? account = _userService.Login(Username!, Password!);
+            try
+            {
+                Account account = _userService.Login(Username!, Password!);
                 //Application.Current.MainWindow?.Close();
-                if (account == null) {
-                    MessageBox.Show("invalid username or password.", "error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-                else if (account.Type.Equals(AccountType.Volunteer)){
+
+                if (account.Type.Equals(AccountType.Volunteer))
+                {
                     //new VolunteerView().Show();
                     _loginWindow.Close();
                 }
@@ -48,20 +48,16 @@ namespace FureverHome.ViewModels
                     new MainWindowUser().Show();
                     _loginWindow.Close();
                 }
-
             }
             catch (InvalidInputException e)
             {
                 MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
-
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "error", MessageBoxButton.OK, MessageBoxImage.Error);
                 _loginWindow.Close();
-
             }
         }
-
     }
 }

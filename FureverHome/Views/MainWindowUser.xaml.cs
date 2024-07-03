@@ -24,7 +24,7 @@ namespace FureverHome.Views
         public MainWindowUser()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(this);
+            DataContext = new MainViewModel();
         }
     }
 }

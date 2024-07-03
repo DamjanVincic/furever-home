@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FureverHome.Models;
+﻿using FureverHome.Models;
 using FureverHome.Repositories;
 
 namespace FureverHome.Services
@@ -17,7 +12,7 @@ namespace FureverHome.Services
             _animalBreedRepository = animalBreedRepository;
         }
 
-        public List<AnimalBreed> getAll()
+        public List<AnimalBreed> GetAll()
         {
             return _animalBreedRepository.GetAll();
         }

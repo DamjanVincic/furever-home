@@ -23,7 +23,7 @@ namespace FureverHome.Views
         public MainWindowVolunteer()
         {
             InitializeComponent();
-            DataContext = new MainViewModel(this);
+            DataContext = new MainViewModel();
         }
     }
 }
