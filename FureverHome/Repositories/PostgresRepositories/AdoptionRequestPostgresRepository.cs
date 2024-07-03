@@ -11,10 +11,11 @@ namespace FureverHome.Repositories.PostgresRepositories
             _dbContext = dbContext;
         }
 
-        public void Add(AdoptionRequest adoptionRequest)
+        public int Add(AdoptionRequest adoptionRequest)
         {
-            _dbContext.AdoptionRequests.Add(adoptionRequest);
+            var addedRequest = _dbContext.AdoptionRequests.Add(adoptionRequest);
             _dbContext.SaveChanges();
+            return addedRequest.Entity.Id;
         }
 
         public void Delete(int id)

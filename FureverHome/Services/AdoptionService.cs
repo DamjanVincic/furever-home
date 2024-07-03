@@ -18,12 +18,17 @@ public class AdoptionService
         _postRepository = postRepository;
         _userRepository = userRepository;
     }
+
+    public List<AdoptionRequest> GetUnapproved()
+    {
+        return _adoptionRequestRepository.GetAll().Where(ar => !ar.Approved).ToList();
+    }
     
-    public void Add(int postId, int userId, int duration, bool permanent)
+    public int Add(int postId, int userId, int duration, bool permanent)
     {
         CanAdopt(postId, userId);
         AdoptionRequest adoptionRequest = new AdoptionRequest(duration, permanent, postId, userId);
-        _adoptionRequestRepository.Add(adoptionRequest);
+        return _adoptionRequestRepository.Add(adoptionRequest);
     }
     
     public void CanAdopt(int postId,int userId)
@@ -35,12 +40,8 @@ public class AdoptionService
             }
         }
     }
-    public void ReviewRequest(int requestId, int volunteerId, bool isApproved)
+    public void ReviewRequest(int requestId, bool isApproved)
     {
-        User user = _userRepository.GetById(volunteerId)!;
-        if (user is not Volunteer)
-            throw new InvalidInputException("User is not a volunteer.");
-        
         AdoptionRequest adoptionRequest = _adoptionRequestRepository.GetById(requestId)!;
         if (isApproved)
         {
@@ -50,10 +51,20 @@ public class AdoptionService
             Post post = adoptionRequest.Post;
             post.Status = PostStatus.Adopted;
             _postRepository.Update(post);
+            
+            DeletePostAdoptionRequests(adoptionRequest.PostId, adoptionRequest.UserId);
         }
         else
         {
             _adoptionRequestRepository.Delete(requestId);
+        }
+    }
+
+    private void DeletePostAdoptionRequests(int postId, int userId)
+    {
+        foreach (int adoptionRequestId in _adoptionRequestRepository.GetAll().Where(ar => ar.PostId == postId && ar.UserId != userId).Select(ar => ar.Id))
+        {
+            _adoptionRequestRepository.Delete(adoptionRequestId);
         }
     }
 }
