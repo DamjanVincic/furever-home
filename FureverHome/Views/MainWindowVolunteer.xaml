@@ -27,7 +27,7 @@
             <TextBlock>Requests:</TextBlock>
             <Button Command="{Binding LogoutCommand}" Content="Logout" Grid.Column="4" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="100" Height="auto" Background="Red" Foreground="White" />
             <Button Command="{Binding AdoptionCommand}" Content="Adoption" Grid.Column="1" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="100" Height="auto" Background="#55bcbb" Foreground="White" />
-            <Button Command="{Binding RegistrationCommand}" Content="Registraion" Grid.Column="2" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="100" Height="auto" Background="#55bcbb" Foreground="White" />
+            <Button Command="{Binding RegistrationCommand}" Content="Registration" Grid.Column="2" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="100" Height="auto" Background="#55bcbb" Foreground="White" />
             <Button Command="{Binding PostCommand}" Content="Posts" Grid.Column="3" Grid.Row="10" Margin="10" VerticalAlignment="Bottom" Width="100" Height="auto" Background="#55bcbb" Foreground="White" />
         </Grid>
 
