@@ -6,7 +6,7 @@ namespace FureverHome.Repositories
     {
         List<AdoptionRequest> GetAll();
         AdoptionRequest? GetById(int id);
-        void Add(AdoptionRequest adoptionRequest);
+        int Add(AdoptionRequest adoptionRequest);
         void Update(AdoptionRequest adoptionRequest);
         void Delete(int id);
     }
