@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FureverHome.Models;
@@ -17,7 +12,7 @@ namespace FureverHome.ViewModels
     {
         private int _adoptionPeriod;
         private bool _isPermanent;
-        private readonly UserService _userService = ServiceProvider.GetRequiredService<UserService>();
+        private readonly PostService _postService = ServiceProvider.GetRequiredService<PostService>();
         private readonly AdoptionService _adoptionService = ServiceProvider.GetRequiredService<AdoptionService>();
         private readonly int _postId;
         public AdoptionPeriodViewModel(int postId)
@@ -63,7 +58,14 @@ namespace FureverHome.ViewModels
         {
             try
             {
-                _adoptionService.Add(_postId, UserService.LoggedInAccount.UserId, AdoptionPeriod, IsPermanent);
+                Post post = _postService.GetById(_postId)!;
+                if (post.Status == PostStatus.Adopted)
+                    throw new InvalidInputException("The animal has already been adopted.");
+                
+                int requestId = _adoptionService.Add(_postId, UserService.LoggedInAccount!.UserId, AdoptionPeriod, IsPermanent);
+                if (UserService.LoggedInAccount!.Type == AccountType.Volunteer)
+                    _adoptionService.ReviewRequest(requestId, true);
+
                 MessageBox.Show("Request for adoption sent successfully.", "Success", MessageBoxButton.OK,
               MessageBoxImage.Information);
             }
