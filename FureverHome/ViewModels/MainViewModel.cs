@@ -60,5 +60,5 @@ namespace FureverHome.ViewModels
                 }
             }
         }
-        }
+    }
 }
