@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using FureverHome.Models;
+using FureverHome.ViewModels;
 
 namespace FureverHome.Views
 {
@@ -22,6 +24,7 @@ namespace FureverHome.Views
         public AdoptionRequestView()
         {
             InitializeComponent();
+            DataContext = ServiceProvider.GetRequiredService<AdoptionRequestListingViewModel>();
         }
     }
 }
