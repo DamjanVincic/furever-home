@@ -30,6 +30,6 @@
             </ListView.View>
         </ListView>
 
-        <Button Content="Comment" VerticalAlignment="Bottom" Margin="10"></Button>
+        <Button Content="Comment" VerticalAlignment="Bottom" Margin="10" Command="{Binding AddCommentCommand}" Background="#55bcbb" Foreground="White" Width="140" Height="40"></Button>
     </Grid>
 </Window>

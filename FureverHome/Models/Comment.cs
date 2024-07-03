@@ -8,10 +8,11 @@ namespace FureverHome.Models
         {
         }
 
-        public Comment(string text, int userId)
+        public Comment(string text, int userId,int postId)
         {
             Text = text;
             UserId = userId;
+            PostId = postId;
         }
 
         public int Id { get; set; }

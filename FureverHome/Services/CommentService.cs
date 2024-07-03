@@ -24,5 +24,9 @@ namespace FureverHome.Services
             Post post = _postRepository.GetById(postId)!;
             return post.Comments;
         }
+        public void Add(string text,int id,int postId)
+        {
+            _commentRepository.Add(new Comment(text,id,postId));
+        }
     }
 }
