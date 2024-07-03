@@ -24,9 +24,6 @@ public partial class App : Application
         ConfigureServices(services);
         
         ServiceProvider.Instance = services.BuildServiceProvider();
-
-        var postRepository = ServiceProvider.GetRequiredService<IPostRepository>();
-        postRepository.Delete(1);
     }
 
     protected override void OnStartup(StartupEventArgs e)
@@ -47,6 +44,8 @@ public partial class App : Application
         services.AddScoped<MainWindow>();
         services.AddScoped<PostRequestListing>();
         services.AddScoped<PostRequestListingViewModel>();
+        services.AddScoped<AdoptionRequestView>();
+        services.AddScoped<AdoptionRequestListingViewModel>();
 
         services.AddScoped<IAccountRepository, AccountPostgresRepository>();
         services.AddScoped<IAdoptionRequestRepository, AdoptionRequestPostgresRepository>();
@@ -68,6 +67,5 @@ public partial class App : Application
         services.AddScoped<ColorService>();
         services.AddScoped<PostService>();
         services.AddScoped<AdoptionService>();
-
     }
 }
