@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Input;
 using FureverHome.Models;
 using FureverHome.Services;
@@ -43,6 +44,8 @@ namespace FureverHome.ViewModels
             if (CanAddComment())
             {
                 _commentService.Add(CommentText,_userId,_postId);
+                MessageBox.Show("Comment added successfully.", "Success", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
         }
 
