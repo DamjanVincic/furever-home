@@ -23,6 +23,8 @@ namespace FureverHome.ViewModels
             RegistrationCommand = new RelayCommand(ViewregistrationRequests);
             CreatePostCommand = new RelayCommand(CreatePost);
             LogoutCommand = new RelayCommand(Logout);
+            AdoptionCommand = new RelayCommand(ViewAdoptionRequest);
+            PostCommand = new RelayCommand(ViewPostRequest);
         }
 
         public IEnumerable<PostViewModel> Posts => _posts;
@@ -30,12 +32,14 @@ namespace FureverHome.ViewModels
         public ICommand CreatePostCommand { get; }
         public ICommand LogoutCommand { get; }
 
+        public ICommand AdoptionCommand { get; }
         private void Login()
         {
             var newWindow = new LoginView();
             newWindow.ShowDialog();
         }
         public ICommand RegistrationCommand { get; }
+        public ICommand PostCommand { get; }
         private void ViewregistrationRequests()
         {
             var newWindow = new RegistrationRequestListingView();
@@ -59,6 +63,16 @@ namespace FureverHome.ViewModels
                     window.Close();
                 }
             }
+        }
+        private void ViewAdoptionRequest()
+        {
+            var window = new AdoptionRequestView();
+            window.Show();
+        }
+        private void ViewPostRequest()
+        {
+            var window = new PostRequestListing();
+            window.Show();
         }
     }
 }
