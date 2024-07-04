@@ -23,8 +23,8 @@ namespace FureverHome.Views
     {
         public PostRequestListing()
         {
-            InitializeComponent();
             DataContext = ServiceProvider.GetRequiredService<PostRequestListingViewModel>();
+            InitializeComponent();
         }
     }
 }
